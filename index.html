@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hyokai - AI Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Poppins', 'sans-serif'],
+            },
+            colors: {
+              'cb-blue': '#0ca2e7',
+              'cb-blue-light': '#38bdf8',
+              'cb-blue-dark': '#0284c7',
+              'ice-white': '#f8fafc',
+              'ice-surface': 'rgba(255, 255, 255, 0.4)',
+              'deep-water': '#0f172a',
+            },
+            animation: {
+              marquee: 'marquee 30s linear infinite',
+              'float-slow': 'float 8s ease-in-out infinite',
+              'float-delayed': 'float 8s ease-in-out 4s infinite',
+              'pulse-glow': 'pulseGlow 4s ease-in-out infinite',
+              'blob': 'blob 10s infinite',
+            },
+            keyframes: {
+              marquee: {
+                '0%': { transform: 'translateX(0%)' },
+                '100%': { transform: 'translateX(-100%)' },
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-15px)' },
+              },
+              pulseGlow: {
+                '0%, 100%': { opacity: '1' },
+                '50%': { opacity: '0.7' },
+              },
+              blob: {
+                '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                '100%': { transform: 'translate(0px, 0px) scale(1)' },
+              }
+            },
+            backgroundImage: {
+              'noise': "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.05%22/%3E%3C/svg%3E')",
+              'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+              'holographic': 'linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 100%)',
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+        color: #1e293b;
+        background-color: #f0f9ff;
+        /* Complex layered background */
+        background-image: 
+          radial-gradient(circle at 10% 20%, rgba(186, 230, 253, 0.4) 0%, transparent 40%),
+          radial-gradient(circle at 90% 80%, rgba(125, 211, 252, 0.4) 0%, transparent 40%),
+          linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%);
+        background-attachment: fixed;
+        -webkit-font-smoothing: antialiased;
+      }
+      
+      /* Thick Ice Effect */
+      .ice-block {
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-top: 1px solid rgba(255, 255, 255, 0.8);
+        border-left: 1px solid rgba(255, 255, 255, 0.4);
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 
+          0 8px 32px 0 rgba(31, 38, 135, 0.07),
+          inset 0 0 32px 0 rgba(255, 255, 255, 0.2);
+      }
+      
+      .ice-card-hover {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .ice-card-hover:hover {
+        background: rgba(255, 255, 255, 0.4);
+        border-color: rgba(255, 255, 255, 0.9);
+        box-shadow: 
+          0 20px 40px 0 rgba(31, 38, 135, 0.1),
+          inset 0 0 20px 0 rgba(255, 255, 255, 0.5);
+        transform: translateY(-5px) scale(1.01);
+      }
+
+      .text-glow {
+        text-shadow: 0 0 20px rgba(12, 162, 231, 0.2);
+      }
+      
+      .clip-diagonal {
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+      }
+      
+      /* Subtle noise overlay */
+      .noise-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0.3;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <div class="noise-overlay"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
