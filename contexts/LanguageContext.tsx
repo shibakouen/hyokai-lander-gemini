@@ -17,11 +17,13 @@ type Translations = {
     ctaPrimary: string;
     ctaSecondary: string;
     demoInputLabel: string;
-    demoInput: string;
-    demoTag: string;
     demoOutputLabel: string;
-    demoOutput: string;
     filename: string;
+    examples: Array<{
+      input: string;
+      tag: string;
+      output: string;
+    }>;
   };
   marquee: {
     text: string;
@@ -110,14 +112,73 @@ const translations: Record<Language, Translations> = {
       headline: 'Talk to AI like a friend.',
       subHeadline: 'Get results like a pro.',
       description: 'You don\'t need to learn "tech speak" to use tools like ChatGPT. Just tell Hyokai what you want in plain English, and we\'ll translate it into the perfect instructions for the computer.',
-      ctaPrimary: 'Polish My Idea',
+      ctaPrimary: 'Try it Free',
       ctaSecondary: 'Show Me an Example',
       demoInputLabel: 'You Say',
-      demoInput: 'make this photo of my grandson look old',
-      demoTag: 'Needs more detail',
       demoOutputLabel: 'Hyokai Says',
-      demoOutput: '"Apply a sepia tone filter to the image, add digital noise for a film grain effect, and soften the edges to create a vintage 1920s photograph aesthetic."',
       filename: 'my_idea.txt',
+      examples: [
+        {
+          input: 'make this photo of my grandson look old',
+          tag: 'Needs more detail',
+          output: '"Apply a sepia tone filter to the image, add digital noise for a film grain effect, and soften the edges to create a vintage 1920s photograph aesthetic."',
+        },
+        {
+          input: 'I have chicken and some vegetables, what should I cook?',
+          tag: 'Too vague',
+          output: '"Suggest 3 quick dinner recipes using chicken breast and mixed vegetables. Include prep time under 30 minutes, list all ingredients needed, and provide step-by-step instructions for a beginner cook."',
+        },
+        {
+          input: 'write an email saying I\'ll be late to work',
+          tag: 'Missing context',
+          output: '"Draft a professional email to my manager explaining I will arrive 30 minutes late due to a medical appointment. Keep it brief, apologetic, and offer to make up the time. Include a clear subject line."',
+        },
+        {
+          input: 'plan a weekend trip somewhere warm',
+          tag: 'Needs specifics',
+          output: '"Recommend 5 warm-weather destinations within a 3-hour flight from major US cities for a weekend getaway. Include estimated costs, must-see attractions, and best time to visit for each location."',
+        },
+        {
+          input: 'find a birthday gift for my wife',
+          tag: 'Too broad',
+          output: '"Suggest 10 thoughtful birthday gift ideas for a wife, ranging from $25 to $200. Include personalized options, experience gifts, and practical luxury items. Organize by category: romantic, practical, and experiential."',
+        },
+        {
+          input: 'make my resume sound better',
+          tag: 'Needs direction',
+          output: '"Rewrite my resume bullet points using strong action verbs and quantifiable achievements. Transform passive descriptions into impactful statements that highlight results. Focus on the STAR method (Situation, Task, Action, Result)."',
+        },
+        {
+          input: 'write a caption for my vacation photo',
+          tag: 'Missing tone',
+          output: '"Create 5 engaging Instagram captions for a beach vacation photo. Include options for: funny/witty, inspirational, simple and clean, travel-focused, and one with relevant hashtags. Keep each under 150 characters."',
+        },
+        {
+          input: 'explain crypto to me simply',
+          tag: 'Needs approach',
+          output: '"Explain cryptocurrency in simple terms that a complete beginner can understand. Use everyday analogies (like digital cash or online gold), avoid technical jargon, and cover: what it is, how it works, and why people use it."',
+        },
+        {
+          input: 'write a thank you note for a gift',
+          tag: 'Lacks detail',
+          output: '"Write a warm, heartfelt thank you note for receiving a thoughtful gift. Include: specific appreciation for the gift, how it made you feel, and mention looking forward to seeing them. Keep it 3-4 sentences, personal but not overly formal."',
+        },
+        {
+          input: 'how do I fix a leaky faucet?',
+          tag: 'Needs structure',
+          output: '"Provide step-by-step instructions to fix a dripping bathroom faucet. List required tools, include safety precautions, explain how to identify the faucet type, and describe the repair process with beginner-friendly language and troubleshooting tips."',
+        },
+        {
+          input: 'help me write a complaint letter',
+          tag: 'Missing context',
+          output: '"Draft a formal but firm complaint letter about poor service or a defective product. Include: clear description of the issue, dates and order numbers, what resolution you expect, and a reasonable deadline. Maintain a professional tone throughout."',
+        },
+        {
+          input: 'suggest movies for date night',
+          tag: 'Too open-ended',
+          output: '"Recommend 8 date night movies across different genres: romantic comedy, thriller, classic romance, and light-hearted adventure. Include streaming availability, runtime, and a spoiler-free reason why each is perfect for couples."',
+        },
+      ],
     },
     marquee: {
       text: 'Works perfectly with the AI tools you already know',
@@ -236,37 +297,37 @@ After the drafts, suggest 1-2 tips for delivery, like timing the send.`
       }
     },
     pricing: {
-      headline: 'Simple, fair pricing.',
-      description: 'Choose the plan that fits your creative needs. From casual dabbling to professional power-using.',
+      headline: 'Simple, transparent pricing.',
+      description: 'Start with a 3-day free trial. All plans include access to every AI model. Cancel anytime.',
       month: '/month',
       plans: [
         {
-          name: 'The Dabbler',
-          tier: 'Free Tier',
-          price: '$0',
-          features: ['25 Messages/mo', 'Standard Translation', 'Works with ChatGPT Free'],
-          cta: 'Try for Free'
+          name: 'Starter',
+          tier: 'For Getting Started',
+          price: '$9.99',
+          features: ['150 transformations/mo', 'All AI models', 'Coding & General modes', 'History sync', 'Email support'],
+          cta: 'Start Free Trial'
         },
         {
-          name: 'The Explorer',
-          tier: 'Basic Tier',
-          price: '$14.99',
-          features: ['250 Messages/mo', 'Faster Processing', 'Priority Access', 'Email Support'],
-          cta: 'Get Basic'
+          name: 'Pro',
+          tier: 'For Power Users',
+          price: '$24.99',
+          features: ['500 transformations/mo', 'All AI models', 'GitHub context integration', 'History sync', 'Priority support'],
+          cta: 'Start Free Trial'
         },
         {
-          name: 'The Creator',
-          tier: 'Pro Tier',
-          price: '$29.00',
-          features: ['500 Messages/mo', 'Unlimited History', 'Advanced Coding Mode', 'Compare 2 AI Models'],
-          cta: 'Get Pro Access'
+          name: 'Business',
+          tier: 'For Teams',
+          price: '$49.99',
+          features: ['1,500 transformations/mo', 'All AI models', 'GitHub context integration', 'Custom instructions', 'Priority support'],
+          cta: 'Start Free Trial'
         },
         {
-          name: 'The Mastermind',
-          tier: 'Premium Tier',
-          price: '$59.99',
-          features: ['1,200 Messages/mo', 'Priority 24/7 Support', 'Early Access Features', 'API Access', 'Team Collaboration'],
-          cta: 'Go Premium'
+          name: 'Max',
+          tier: 'For Heavy Users',
+          price: '$99.99',
+          features: ['5,000 transformations/mo', 'All AI models', 'Custom instructions', 'Dedicated support', 'Early access to new features'],
+          cta: 'Start Free Trial'
         }
       ]
     },
@@ -301,14 +362,73 @@ After the drafts, suggest 1-2 tips for delivery, like timing the send.`
       headline: 'AIと、もっと自由に話そう。',
       subHeadline: 'プロ並みの結果を、その手に。',
       description: '「プロンプトエンジニアリング」のような専門用語を覚える必要はありません。普通の言葉でHyokaiに伝えるだけで、AIが完璧に理解できる指示書に翻訳します。',
-      ctaPrimary: 'アイデアを磨く',
+      ctaPrimary: '無料で試す',
       ctaSecondary: '例を見る',
       demoInputLabel: 'あなたの言葉',
-      demoInput: '孫の写真を、昔の写真っぽく加工して',
-      demoTag: '情報不足',
       demoOutputLabel: 'Hyokaiの翻訳',
-      demoOutput: '「セピア色のフィルターを適用し、フィルムグレイン（粒状感）のノイズを追加してください。エッジを柔らかくして、1920年代のヴィンテージ写真のような雰囲気に仕上げてください。」',
       filename: 'idea_memo.txt',
+      examples: [
+        {
+          input: '孫の写真を、昔の写真っぽく加工して',
+          tag: '情報不足',
+          output: '「セピア色のフィルターを適用し、フィルムグレイン（粒状感）のノイズを追加してください。エッジを柔らかくして、1920年代のヴィンテージ写真のような雰囲気に仕上げてください。」',
+        },
+        {
+          input: '鶏肉と野菜があるんだけど、何作ればいい？',
+          tag: '曖昧すぎる',
+          output: '「鶏胸肉とミックス野菜を使った簡単な夕食レシピを3つ提案してください。調理時間は30分以内、必要な材料をすべてリストアップし、料理初心者向けに手順を説明してください。」',
+        },
+        {
+          input: '遅刻するってメール書いて',
+          tag: '文脈不足',
+          output: '「上司宛に、通院のため30分遅刻する旨を伝えるビジネスメールを作成してください。簡潔で丁寧な謝罪を含め、遅れた分の時間を取り戻す意思を示してください。件名も含めてください。」',
+        },
+        {
+          input: '週末どっか暖かいとこ旅行したい',
+          tag: '具体性不足',
+          output: '「主要都市から3時間以内のフライトで行ける、週末旅行に最適な暖かい観光地を5つ推薦してください。各地の予算目安、おすすめスポット、ベストシーズンを含めてください。」',
+        },
+        {
+          input: '妻への誕生日プレゼント探して',
+          tag: '範囲が広い',
+          output: '「妻への誕生日プレゼントのアイデアを10個提案してください。価格帯は3,000円〜30,000円。パーソナライズできるもの、体験ギフト、実用的な高級品を含め、ロマンチック・実用的・体験型にカテゴリ分けしてください。」',
+        },
+        {
+          input: '履歴書をもっとよくして',
+          tag: '方向性不明',
+          output: '「履歴書の職歴欄を、強いアクション動詞と数値化できる実績を使って書き直してください。受動的な記述をインパクトのある文に変換し、成果を強調してください。STAR法（状況・課題・行動・結果）を意識してください。」',
+        },
+        {
+          input: '旅行写真のキャプション書いて',
+          tag: 'トーン不明',
+          output: '「ビーチ旅行の写真用のInstagramキャプションを5パターン作成してください。面白い系、インスピレーション系、シンプル系、旅行系、ハッシュタグ付きをそれぞれ含め、各150文字以内にしてください。」',
+        },
+        {
+          input: '仮想通貨を簡単に説明して',
+          tag: 'アプローチ不明',
+          output: '「仮想通貨について、完全な初心者でも理解できるように説明してください。身近な例え（デジタル現金やオンラインの金など）を使い、専門用語を避けて、仮想通貨とは何か、どう動くか、なぜ使われるかを説明してください。」',
+        },
+        {
+          input: 'プレゼントのお礼状書いて',
+          tag: '詳細不足',
+          output: '「心のこもったプレゼントへの感謝を伝える、温かいお礼状を書いてください。プレゼントへの具体的な感謝、どう感じたか、また会えることを楽しみにしている旨を含め、3〜4文で親しみやすく、かつ丁寧な文章にしてください。」',
+        },
+        {
+          input: '蛇口の水漏れどうやって直す？',
+          tag: '構成不足',
+          output: '「洗面所の蛇口の水漏れを修理する手順を説明してください。必要な工具のリスト、安全上の注意点、蛇口のタイプの見分け方を含め、初心者向けの分かりやすい言葉とトラブルシューティングのヒントも添えてください。」',
+        },
+        {
+          input: 'クレームの手紙書くの手伝って',
+          tag: '状況不明',
+          output: '「サービスや商品の問題について、丁寧だが毅然としたクレームレターを作成してください。問題の明確な説明、日付や注文番号、求める解決策、妥当な期限を含め、全体を通してプロフェッショナルなトーンを維持してください。」',
+        },
+        {
+          input: 'デートにおすすめの映画教えて',
+          tag: '選択肢多すぎ',
+          output: '「デートナイトにおすすめの映画を、ロマンチックコメディ、スリラー、王道ラブストーリー、軽いアドベンチャーなど8作品提案してください。配信サービス、上映時間、ネタバレなしでカップルにぴったりな理由を含めてください。」',
+        },
+      ],
     },
     marquee: {
       text: 'お使いのAIツールと完璧に連携します',
@@ -438,37 +558,37 @@ After the drafts, suggest 1-2 tips for delivery, like timing the send.`
       }
     },
     pricing: {
-      headline: 'シンプルで公正な料金プラン',
-      description: 'あなたのニーズに合ったプランをお選びください。趣味での利用からプロフェッショナルな活用まで対応します。',
+      headline: 'シンプルで透明な料金プラン',
+      description: '3日間の無料トライアルでスタート。全プランで全AIモデルが使えます。いつでも解約可能。',
       month: '/月',
       plans: [
         {
-          name: 'ダブラー',
-          tier: '無料プラン',
-          price: '$0',
-          features: ['月間25メッセージまで', '標準翻訳機能', 'ChatGPT (無料版) 対応'],
-          cta: '無料で試す'
+          name: 'スターター',
+          tier: '入門プラン',
+          price: '$9.99',
+          features: ['月150回の変換', '全AIモデル対応', 'コーディング＆一般モード', '履歴同期', 'メールサポート'],
+          cta: '無料トライアル開始'
         },
         {
-          name: 'エクスプローラー',
-          tier: 'ベーシック',
-          price: '$14.99',
-          features: ['月間250メッセージ', '高速処理', '優先アクセス権', 'メールサポート'],
-          cta: 'ベーシックを選ぶ'
+          name: 'プロ',
+          tier: 'パワーユーザー向け',
+          price: '$24.99',
+          features: ['月500回の変換', '全AIモデル対応', 'GitHubコンテキスト連携', '履歴同期', '優先サポート'],
+          cta: '無料トライアル開始'
         },
         {
-          name: 'クリエイター',
-          tier: 'プロ',
-          price: '$29.00',
-          features: ['月間500メッセージ', '履歴の無制限保存', '高度なコーディングモード', '2つのAIモデル比較'],
-          cta: 'プロへのアクセス'
+          name: 'ビジネス',
+          tier: 'チーム向け',
+          price: '$49.99',
+          features: ['月1,500回の変換', '全AIモデル対応', 'GitHubコンテキスト連携', 'カスタム指示', '優先サポート'],
+          cta: '無料トライアル開始'
         },
         {
-          name: 'マスターマインド',
-          tier: 'プレミアム',
-          price: '$59.99',
-          features: ['月間1,200メッセージ', '24時間優先サポート', '新機能への早期アクセス', 'API利用権', 'チームコラボレーション'],
-          cta: 'プレミアムにする'
+          name: 'マックス',
+          tier: 'ヘビーユーザー向け',
+          price: '$99.99',
+          features: ['月5,000回の変換', '全AIモデル対応', 'カスタム指示', '専用サポート', '新機能への早期アクセス'],
+          cta: '無料トライアル開始'
         }
       ]
     },

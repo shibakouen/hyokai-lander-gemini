@@ -1,8 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const Hero: React.FC = () => {
   const { t } = useLanguage();
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  const examples = t.hero.examples;
+  const totalExamples = examples.length;
+
+  // Go to specific example with transition
+  const goToExample = useCallback((index: number) => {
+    if (index === currentIndex) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentIndex(index);
+      setIsTransitioning(false);
+    }, 150);
+  }, [currentIndex]);
+
+  // Auto-rotate every 5 seconds
+  useEffect(() => {
+    if (isPaused) return;
+
+    const interval = setInterval(() => {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentIndex((prev) => (prev + 1) % totalExamples);
+        setIsTransitioning(false);
+      }, 150);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isPaused, totalExamples]);
+
+  const currentExample = examples[currentIndex];
 
   return (
     <section className="pt-32 pb-20 md:pt-48 md:pb-32 relative overflow-hidden min-h-[90vh] flex items-center">
@@ -35,7 +68,7 @@ const Hero: React.FC = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-5 w-full sm:w-auto">
-              <a href="#solutions" className="group relative px-8 py-4 bg-slate-900 text-white rounded-2xl font-semibold overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 hover:-translate-y-1 text-center">
+              <a href="https://app.hyokai.ai" className="group relative px-8 py-4 bg-slate-900 text-white rounded-2xl font-semibold overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 hover:-translate-y-1 text-center">
                 <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-cb-blue to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <span className="relative z-10 flex items-center justify-center gap-2">
                   {t.hero.ctaPrimary} <i className="fa-solid fa-wand-magic-sparkles group-hover:translate-x-1 transition-transform"></i>
@@ -48,7 +81,11 @@ const Hero: React.FC = () => {
           </div>
 
           {/* Visual: The Ice Prism */}
-          <div className="lg:w-1/2 w-full perspective-1000 relative">
+          <div
+            className="lg:w-1/2 w-full perspective-1000 relative"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
             {/* Floating Elements */}
             <div className="hidden md:block absolute -top-10 -right-10 w-24 h-24 bg-gradient-to-br from-cyan-300 to-blue-500 rounded-2xl rotate-12 blur-lg opacity-40 animate-float-delayed"></div>
             <div className="hidden md:block absolute -bottom-5 -left-5 w-32 h-32 bg-gradient-to-tr from-purple-300 to-blue-400 rounded-full blur-xl opacity-30 animate-float"></div>
@@ -56,7 +93,7 @@ const Hero: React.FC = () => {
             <div className="relative ice-block rounded-[2.5rem] p-3 animate-float-slow transform hover:rotate-1 transition-transform duration-700">
                {/* Internal container for content */}
                <div className="bg-white/40 backdrop-blur-xl rounded-[2rem] border border-white/60 overflow-hidden flex flex-col">
-                 
+
                  {/* Top Bar (Browser/Terminal style) */}
                  <div className="h-12 bg-white/20 border-b border-white/30 flex items-center px-6 gap-2">
                     <div className="w-3 h-3 rounded-full bg-red-400/60 border border-red-400/30"></div>
@@ -71,13 +108,15 @@ const Hero: React.FC = () => {
                         <div className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
                             <i className="fa-regular fa-comment-dots"></i> {t.hero.demoInputLabel}
                         </div>
-                        <div className="p-6 bg-slate-50/40 rounded-2xl border border-white/50 text-lg md:text-xl font-medium text-slate-700 italic font-serif leading-relaxed relative">
+                        <div
+                          className={`p-6 bg-slate-50/40 rounded-2xl border border-white/50 text-lg md:text-xl font-medium text-slate-700 italic font-serif leading-relaxed relative transition-opacity duration-150 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
+                        >
                           <span className="absolute -top-3 -left-2 text-4xl text-blue-200/50">"</span>
-                          {t.hero.demoInput}
+                          {currentExample.input}
                           <span className="absolute -bottom-8 -right-2 text-4xl text-blue-200/50">"</span>
                         </div>
-                        <div className="mt-6 flex items-center gap-2 text-xs text-amber-600/80 font-medium px-3 py-1 bg-amber-50/50 rounded-full w-fit border border-amber-100">
-                          <i className="fa-solid fa-bolt"></i> {t.hero.demoTag}
+                        <div className={`mt-6 flex items-center gap-2 text-xs text-amber-600/80 font-medium px-3 py-1 bg-amber-50/50 rounded-full w-fit border border-amber-100 transition-opacity duration-150 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
+                          <i className="fa-solid fa-bolt"></i> {currentExample.tag}
                         </div>
                     </div>
 
@@ -85,7 +124,7 @@ const Hero: React.FC = () => {
                     <div className="p-6 md:p-10 flex-1 bg-gradient-to-br from-blue-50/40 to-cyan-100/20 relative overflow-hidden">
                         {/* Shimmer overlay */}
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 translate-x-[-150%] animate-shimmer"></div>
-                        
+
                         <div className="flex justify-between items-center mb-4 relative z-10">
                           <div className="text-xs font-bold text-cb-blue uppercase tracking-widest flex items-center gap-2">
                             <i className="fa-solid fa-wand-magic-sparkles"></i> {t.hero.demoOutputLabel}
@@ -94,15 +133,31 @@ const Hero: React.FC = () => {
                             <i className="fa-solid fa-check"></i>
                           </div>
                         </div>
-                        <div className="bg-white/60 p-5 rounded-2xl border border-white/80 shadow-sm text-sm text-slate-700 leading-7 relative z-10 backdrop-blur-sm">
-                          {t.hero.demoOutput}
+                        <div className={`bg-white/60 p-5 rounded-2xl border border-white/80 shadow-sm text-sm text-slate-700 leading-7 relative z-10 backdrop-blur-sm transition-opacity duration-150 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
+                          {currentExample.output}
                         </div>
                     </div>
                  </div>
                </div>
-               
+
                {/* Reflection highlights */}
                <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/20 to-transparent rounded-t-[2.5rem] pointer-events-none"></div>
+            </div>
+
+            {/* Navigation Dots */}
+            <div className="flex justify-center gap-2 mt-6">
+              {examples.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToExample(index)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    index === currentIndex
+                      ? 'bg-cb-blue w-6'
+                      : 'bg-slate-300 hover:bg-slate-400'
+                  }`}
+                  aria-label={`Go to example ${index + 1}`}
+                />
+              ))}
             </div>
           </div>
         </div>
