@@ -496,12 +496,13 @@ const Home = () => {
                   </li>
                 ))}
               </ul>
-              <a
-                href="https://app.hyokai.ai"
+              <button
+                onClick={() => handleSelectPlan('free')}
+                disabled={isCheckoutLoading}
                 className="c-button c-button--ghost pricing_cta"
               >
-                <span className="c-button_span">{t.pricing.getStarted}</span>
-              </a>
+                <span className="c-button_span">{isCheckoutLoading ? '...' : t.pricing.getStarted}</span>
+              </button>
             </div>
 
             {/* Starter */}
