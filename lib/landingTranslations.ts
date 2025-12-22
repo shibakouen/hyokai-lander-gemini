@@ -169,6 +169,18 @@ export const landingTranslations = {
       startTrial: 'Start Free Trial',
       mostPopular: 'Most Popular',
       tiers: {
+        free: {
+          name: 'Free',
+          tier: 'Try It Out',
+          price: '$0',
+          description: 'Start for free, no credit card required',
+          features: [
+            '20 transformations/mo',
+            'All AI models',
+            'Coding & General modes',
+            'Basic history',
+          ],
+        },
         starter: {
           name: 'Starter',
           tier: 'For Getting Started',
@@ -455,6 +467,18 @@ export const landingTranslations = {
       startTrial: '無料トライアル',
       mostPopular: '人気No.1',
       tiers: {
+        free: {
+          name: '無料',
+          tier: 'お試し',
+          price: '$0',
+          description: 'クレジットカード不要で今すぐ始める',
+          features: [
+            '月20回の変換',
+            'すべてのAIモデル',
+            'コーディング＆一般モード',
+            '基本履歴',
+          ],
+        },
         starter: {
           name: 'スターター',
           tier: '入門者向け',

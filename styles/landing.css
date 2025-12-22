@@ -1662,8 +1662,24 @@ body {
   margin: 0 auto;
 }
 
+.pricing_grid--5 {
+  grid-template-columns: repeat(5, 1fr);
+  max-width: 1400px;
+}
+
+@media (max-width: 1300px) {
+  .pricing_grid--5 {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 900px;
+  }
+}
+
 @media (max-width: 1100px) {
   .pricing_grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 700px;
+  }
+  .pricing_grid--5 {
     grid-template-columns: repeat(2, 1fr);
     max-width: 700px;
   }
@@ -1671,6 +1687,10 @@ body {
 
 @media (max-width: 900px) {
   .pricing_grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+  }
+  .pricing_grid--5 {
     grid-template-columns: 1fr;
     max-width: 400px;
   }
@@ -1687,6 +1707,25 @@ body {
 
 .pricing_card:hover {
   transform: translateY(-4px);
+}
+
+/* Free tier - subtle gray */
+.pricing_card--free {
+  background: var(--gray-50);
+  border: 1px dashed var(--gray-200);
+}
+
+.pricing_card--free:hover {
+  border-color: var(--gray-300);
+  background: var(--gray-25);
+}
+
+.pricing_card--free .pricing_tier {
+  color: var(--gray-500);
+}
+
+.pricing_card--free .pricing_feature_check {
+  background: var(--gray-400);
 }
 
 .pricing_card--featured {

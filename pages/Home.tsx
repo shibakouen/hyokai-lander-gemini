@@ -3,6 +3,17 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { getLandingTranslations, Language } from '../lib/landingTranslations';
 import '../styles/landing.css';
 
+// Stripe price IDs for standard tiers
+const STRIPE_PRICE_IDS = {
+  free: { monthly: 'price_1ShB7xCs88k2DV32u5SZTKze', annual: 'price_1ShB7xCs88k2DV32u5SZTKze' },
+  starter: { monthly: 'price_1SgZHyCs88k2DV32g2UFt1Vr', annual: 'price_1SgZHzCs88k2DV32suTd3OoL' },
+  pro: { monthly: 'price_1SgZHzCs88k2DV32K1H4Q5CB', annual: 'price_1SgZHzCs88k2DV32TPog3GYb' },
+  business: { monthly: 'price_1SgZI0Cs88k2DV32Wsx1etw7', annual: 'price_1SgZI0Cs88k2DV32oekBtFHN' },
+  max: { monthly: 'price_1SgZI0Cs88k2DV32AhdBxJSJ', annual: 'price_1SgZI1Cs88k2DV32YfEG9JBB' },
+};
+
+type PlanId = 'free' | 'starter' | 'pro' | 'business' | 'max';
+
 const Home = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -33,6 +44,46 @@ const Home = () => {
 
   // FAQ accordion state
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+
+  // Stripe checkout state
+  const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
+
+  // Open Stripe checkout for a plan
+  const handleSelectPlan = async (planId: PlanId) => {
+    if (isCheckoutLoading) return;
+    setIsCheckoutLoading(true);
+
+    try {
+      const response = await fetch(
+        'https://znjqpxlijraodmjrhqaz.supabase.co/functions/v1/stripe-checkout',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            planId,
+            interval: 'monthly',
+            successUrl: `https://app.hyokai.ai/settings?checkout=success`,
+            cancelUrl: window.location.href,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to create checkout session');
+      }
+
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch (err) {
+      console.error('Error opening checkout:', err);
+      alert('Failed to open checkout. Please try again.');
+    } finally {
+      setIsCheckoutLoading(false);
+    }
+  };
 
   // Auto-rotate carousel
   useEffect(() => {
@@ -115,10 +166,10 @@ const Home = () => {
             <a href="https://app.hyokai.ai" className="c-button c-button--ghost">
               <span className="c-button_span">{t.nav.logIn}</span>
             </a>
-            <Link to="/pro" className="c-button c-button--brand">
+            <a href="https://app.hyokai.ai" className="c-button c-button--brand">
               <div className="c-button_bg"></div>
               <span className="c-button_span">{t.nav.getStarted}</span>
-            </Link>
+            </a>
           </div>
         </div>
       </nav>
@@ -144,10 +195,10 @@ const Home = () => {
               </p>
 
               <div className="g_btn_group">
-                <Link to="/pro" className="c-button c-button--brand c-button--lg">
+                <a href="https://app.hyokai.ai" className="c-button c-button--brand c-button--lg">
                   <div className="c-button_bg"></div>
                   <span className="c-button_span">{t.hero.ctaPrimary}</span>
-                </Link>
+                </a>
                 <a href="#demo" className="c-button c-button--light c-button--lg">
                   <div className="c-button_bg"></div>
                   <span className="c-button_span">{t.hero.ctaSecondary}</span>
@@ -427,7 +478,32 @@ const Home = () => {
             <p className="c-text-2 cc-onsurface-weak">{t.pricing.subtitle}</p>
           </div>
 
-          <div className="pricing_grid">
+          <div className="pricing_grid pricing_grid--5">
+            {/* Free */}
+            <div className="pricing_card pricing_card--free">
+              <div className="pricing_name">{t.pricing.tiers.free.name}</div>
+              <div className="pricing_tier">{t.pricing.tiers.free.tier}</div>
+              <div className="pricing_price">
+                <span className="pricing_amount">{t.pricing.tiers.free.price}</span>
+                <span className="pricing_period">{t.pricing.perMonth}</span>
+              </div>
+              <p className="pricing_desc">{t.pricing.tiers.free.description}</p>
+              <ul className="pricing_features">
+                {t.pricing.tiers.free.features.map((feature, idx) => (
+                  <li key={idx} className="pricing_feature">
+                    <span className="pricing_feature_check">✓</span>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="https://app.hyokai.ai"
+                className="c-button c-button--ghost pricing_cta"
+              >
+                <span className="c-button_span">{t.pricing.getStarted}</span>
+              </a>
+            </div>
+
             {/* Starter */}
             <div className="pricing_card">
               <div className="pricing_name">{t.pricing.tiers.starter.name}</div>
@@ -445,9 +521,13 @@ const Home = () => {
                   </li>
                 ))}
               </ul>
-              <Link to="/pro" className="c-button c-button--ghost pricing_cta">
-                <span className="c-button_span">{t.pricing.getStarted}</span>
-              </Link>
+              <button
+                onClick={() => handleSelectPlan('starter')}
+                disabled={isCheckoutLoading}
+                className="c-button c-button--ghost pricing_cta"
+              >
+                <span className="c-button_span">{isCheckoutLoading ? '...' : t.pricing.getStarted}</span>
+              </button>
             </div>
 
             {/* Pro (Featured) */}
@@ -468,10 +548,14 @@ const Home = () => {
                   </li>
                 ))}
               </ul>
-              <Link to="/pro" className="c-button c-button--brand pricing_cta">
+              <button
+                onClick={() => handleSelectPlan('pro')}
+                disabled={isCheckoutLoading}
+                className="c-button c-button--brand pricing_cta"
+              >
                 <div className="c-button_bg"></div>
-                <span className="c-button_span">{t.pricing.startTrial}</span>
-              </Link>
+                <span className="c-button_span">{isCheckoutLoading ? '...' : t.pricing.startTrial}</span>
+              </button>
             </div>
 
             {/* Business */}
@@ -491,9 +575,13 @@ const Home = () => {
                   </li>
                 ))}
               </ul>
-              <Link to="/pro" className="c-button c-button--ghost pricing_cta">
-                <span className="c-button_span">{t.pricing.getStarted}</span>
-              </Link>
+              <button
+                onClick={() => handleSelectPlan('business')}
+                disabled={isCheckoutLoading}
+                className="c-button c-button--ghost pricing_cta"
+              >
+                <span className="c-button_span">{isCheckoutLoading ? '...' : t.pricing.getStarted}</span>
+              </button>
             </div>
 
             {/* Max */}
@@ -513,9 +601,14 @@ const Home = () => {
                   </li>
                 ))}
               </ul>
-              <Link to="/pro" className="c-button c-button--ghost pricing_cta" style={{ borderColor: 'rgba(139, 92, 246, 0.3)', color: 'white' }}>
-                <span className="c-button_span">{t.pricing.getStarted}</span>
-              </Link>
+              <button
+                onClick={() => handleSelectPlan('max')}
+                disabled={isCheckoutLoading}
+                className="c-button c-button--ghost pricing_cta"
+                style={{ borderColor: 'rgba(139, 92, 246, 0.3)', color: 'white' }}
+              >
+                <span className="c-button_span">{isCheckoutLoading ? '...' : t.pricing.getStarted}</span>
+              </button>
             </div>
           </div>
         </div>

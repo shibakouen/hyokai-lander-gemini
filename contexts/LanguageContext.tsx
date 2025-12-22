@@ -630,9 +630,16 @@ After the drafts, suggest 1-2 tips for delivery, like timing the send.`
     },
     pricing: {
       headline: 'Simple, transparent pricing.',
-      description: 'Start with a 3-day free trial. All plans include access to every AI model. Cancel anytime.',
+      description: 'Start free with 20 transformations/month. Upgrade when you need more. All plans include access to every AI model.',
       month: '/month',
       plans: [
+        {
+          name: 'Free',
+          tier: 'Try It Out',
+          price: '$0',
+          features: ['20 transformations/mo', 'All AI models', 'Coding & General modes', 'Basic history'],
+          cta: 'Get Started Free'
+        },
         {
           name: 'Starter',
           tier: 'For Getting Started',
@@ -1246,9 +1253,16 @@ After the drafts, suggest 1-2 tips for delivery, like timing the send.`
     },
     pricing: {
       headline: 'シンプルで透明な料金プラン',
-      description: '3日間の無料トライアルでスタート。全プランで全AIモデルが使えます。いつでも解約可能。',
+      description: '無料で月20回まで使えます。必要に応じてアップグレード。全プランで全AIモデル対応。',
       month: '/月',
       plans: [
+        {
+          name: '無料',
+          tier: 'まずはお試し',
+          price: '$0',
+          features: ['月20回の変換', '全AIモデル対応', 'コーディング＆一般モード', '基本履歴'],
+          cta: '無料で始める'
+        },
         {
           name: 'スターター',
           tier: '入門プラン',
