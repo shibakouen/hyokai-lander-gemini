@@ -83,12 +83,13 @@ const Pricing: React.FC = () => {
                         </li>
                     ))}
                 </ul>
-                <a
-                    href="https://app.hyokai.ai"
-                    className="w-full py-3 rounded-xl border border-slate-300 text-slate-700 font-semibold hover:bg-slate-100 hover:text-slate-900 transition-colors bg-white/80 text-sm block text-center"
+                <button
+                    onClick={() => handleSelectPlan('free')}
+                    disabled={isCheckoutLoading}
+                    className="w-full py-3 rounded-xl border border-slate-300 text-slate-700 font-semibold hover:bg-slate-100 hover:text-slate-900 transition-colors bg-white/80 text-sm block text-center disabled:opacity-50 touch-manipulation"
                 >
-                    {t.pricing.plans[0].cta}
-                </a>
+                    {isCheckoutLoading ? '...' : t.pricing.plans[0].cta}
+                </button>
             </div>
 
             {/* TIER 1: STARTER */}
@@ -113,7 +114,7 @@ const Pricing: React.FC = () => {
                 <button
                     onClick={() => handleSelectPlan('starter')}
                     disabled={isCheckoutLoading}
-                    className="w-full py-3 rounded-xl border border-cb-blue-light text-cb-blue-dark font-semibold hover:bg-cb-blue hover:text-white transition-colors bg-white/80 text-sm block text-center disabled:opacity-50"
+                    className="w-full py-3 rounded-xl border border-cb-blue-light text-cb-blue-dark font-semibold hover:bg-cb-blue hover:text-white transition-colors bg-white/80 text-sm block text-center disabled:opacity-50 touch-manipulation"
                 >
                     {isCheckoutLoading ? '...' : t.pricing.plans[1].cta}
                 </button>
@@ -154,7 +155,7 @@ const Pricing: React.FC = () => {
                 <button
                     onClick={() => handleSelectPlan('pro')}
                     disabled={isCheckoutLoading}
-                    className="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-400 to-cb-blue text-white font-bold hover:shadow-[0_0_20px_rgba(34,211,238,0.5)] transition-all duration-300 relative z-10 border border-white/20 text-sm block text-center disabled:opacity-50"
+                    className="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-400 to-cb-blue text-white font-bold hover:shadow-[0_0_20px_rgba(34,211,238,0.5)] transition-all duration-300 relative z-10 border border-white/20 text-sm block text-center disabled:opacity-50 touch-manipulation"
                 >
                     {isCheckoutLoading ? '...' : t.pricing.plans[2].cta}
                 </button>
@@ -182,7 +183,7 @@ const Pricing: React.FC = () => {
                 <button
                     onClick={() => handleSelectPlan('business')}
                     disabled={isCheckoutLoading}
-                    className="w-full py-3 rounded-xl border border-emerald-400 text-emerald-700 font-semibold hover:bg-emerald-500 hover:text-white transition-colors bg-white/80 text-sm block text-center disabled:opacity-50"
+                    className="w-full py-3 rounded-xl border border-emerald-400 text-emerald-700 font-semibold hover:bg-emerald-500 hover:text-white transition-colors bg-white/80 text-sm block text-center disabled:opacity-50 touch-manipulation"
                 >
                     {isCheckoutLoading ? '...' : t.pricing.plans[3].cta}
                 </button>
@@ -213,7 +214,7 @@ const Pricing: React.FC = () => {
                 <button
                     onClick={() => handleSelectPlan('max')}
                     disabled={isCheckoutLoading}
-                    className="w-full py-3 rounded-xl border border-purple-500/50 text-purple-200 font-semibold hover:bg-purple-900/50 hover:text-white transition-colors bg-purple-900/20 text-sm block text-center disabled:opacity-50"
+                    className="w-full py-3 rounded-xl border border-purple-500/50 text-purple-200 font-semibold hover:bg-purple-900/50 hover:text-white transition-colors bg-purple-900/20 text-sm block text-center disabled:opacity-50 touch-manipulation"
                 >
                     {isCheckoutLoading ? '...' : t.pricing.plans[4].cta}
                 </button>
