@@ -127,6 +127,7 @@ const getProTranslations = (lang: 'en' | 'ja') => {
         annual: 'Annual',
         youSave: 'You save',
         tiers: {
+          free: { name: 'Free', tier: 'Try It Out', price: '$0', description: 'Start for free, no credit card required', features: ['20 transformations/mo', 'All AI models', 'Coding & General modes', 'Basic history'] },
           starter: { name: 'Starter', tier: 'For Getting Started', price: '$9.99', description: 'Essential features for individuals', features: ['150 transformations/month', 'All AI models', 'Coding & General modes', 'History sync', 'Email support'] },
           pro: { name: 'Pro', tier: 'For Power Users', price: '$24.99', description: 'Advanced features for professionals', features: ['500 transformations/month', 'All AI models', 'GitHub context integration', 'Model comparison', 'Custom instructions', 'Priority support'] },
           business: { name: 'Business', tier: 'For Teams', price: '$49.99', description: 'Collaboration features for teams', features: ['1,500 transformations/month', 'Everything in Pro', 'Team workspaces', 'Shared contexts', 'Analytics dashboard', 'Dedicated support'] },
@@ -290,6 +291,7 @@ const getProTranslations = (lang: 'en' | 'ja') => {
         annual: '年払い',
         youSave: '割引',
         tiers: {
+          free: { name: '無料', tier: 'お試し', price: '$0', description: 'クレジットカード不要で今すぐ始める', features: ['月20回の変換', 'すべてのAIモデル', 'コーディング＆一般モード', '基本履歴'] },
           starter: { name: 'スターター', tier: 'はじめての方に', price: '$9.99', description: '基本機能をすべて利用可能', features: ['月150回の変換', '全AIモデル利用可', 'コーディング・一般モード', '履歴の同期', 'メールサポート'] },
           pro: { name: 'プロ', tier: 'パワーユーザー向け', price: '$24.99', description: 'プロ向けの高度な機能', features: ['月500回の変換', '全AIモデル利用可', 'GitHub連携', 'モデル比較', 'カスタム指示', '優先サポート'] },
           business: { name: 'ビジネス', tier: 'チーム向け', price: '$49.99', description: 'チームでの共同作業に', features: ['月1,500回の変換', 'Proの全機能', 'チームワークスペース', 'コンテキスト共有', '分析ダッシュボード', '専任サポート'] },
@@ -396,6 +398,7 @@ export default function Pricing() {
 
   // Stripe price IDs for Pro tiers
   const STRIPE_PRICE_IDS = {
+    free: { monthly: 'price_1ShB7xCs88k2DV32u5SZTKze', annual: 'price_1ShB7xCs88k2DV32u5SZTKze' },
     pro_tier: { monthly: 'price_1Sh19MCs88k2DV32GixXalxE', annual: 'price_1Sh19MCs88k2DV32V7tRZ1rc' },
     pro_plus: { monthly: 'price_1Sh19MCs88k2DV32KhAzBhvQ', annual: 'price_1Sh19PCs88k2DV32lG1bKgko' },
     pro_team: { monthly: 'price_1Sh19RCs88k2DV32f195233o', annual: 'price_1Sh19UCs88k2DV32THLkiYS8' },
@@ -403,7 +406,7 @@ export default function Pricing() {
   };
 
   // Open Stripe checkout for a plan
-  const handleSelectPlan = async (planId: 'pro_tier' | 'pro_plus' | 'pro_team' | 'pro_max') => {
+  const handleSelectPlan = async (planId: 'free' | 'pro_tier' | 'pro_plus' | 'pro_team' | 'pro_max') => {
     if (isCheckoutLoading) return;
     setIsCheckoutLoading(true);
 
@@ -416,7 +419,8 @@ export default function Pricing() {
           body: JSON.stringify({
             planId,
             interval: 'monthly',
-            successUrl: `https://app.hyokai.ai/settings?checkout=success`,
+            // Let the edge function determine the redirect URL
+            // (guests → /checkout-success, authenticated → /settings)
             cancelUrl: window.location.href,
           }),
         }
@@ -818,6 +822,32 @@ export default function Pricing() {
           </div>
 
             <div className="pricing_grid">
+              {/* Free */}
+              <div className="pricing_card pricing_card--free">
+                <div className="pricing_name">{t.pricing.tiers.free.name}</div>
+                <div className="pricing_tier">{t.pricing.tiers.free.tier}</div>
+                <div className="pricing_price">
+                  <span className="pricing_amount">{t.pricing.tiers.free.price}</span>
+                  <span className="pricing_period">{t.pricing.perMonth}</span>
+                </div>
+                <p className="pricing_desc">{t.pricing.tiers.free.description}</p>
+                <ul className="pricing_features">
+                  {t.pricing.tiers.free.features.map((feature, idx) => (
+                    <li key={idx} className="pricing_feature">
+                      <span className="pricing_feature_check">✓</span>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <button
+                  onClick={() => handleSelectPlan('free')}
+                  disabled={isCheckoutLoading}
+                  className="c-button c-button--ghost pricing_cta"
+                >
+                  <span className="c-button_span">{isCheckoutLoading ? '...' : t.pricing.getStarted}</span>
+                </button>
+              </div>
+
               {/* Pro Tier */}
               <div className="pricing_card pricing_card--pro-tier">
                 <div className="pricing_name">{t.pricing.proTiers.pro_tier.name}</div>
