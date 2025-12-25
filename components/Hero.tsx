@@ -68,7 +68,7 @@ const Hero: React.FC = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-5 w-full sm:w-auto">
-              <a href="https://app.hyokai.ai" className="group relative px-8 py-4 bg-slate-900 text-white rounded-2xl font-semibold overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 hover:-translate-y-1 text-center">
+              <a href="#pricing" className="group relative px-8 py-4 bg-slate-900 text-white rounded-2xl font-semibold overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 hover:-translate-y-1 text-center">
                 <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-cb-blue to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <span className="relative z-10 flex items-center justify-center gap-2">
                   {t.hero.ctaPrimary} <i className="fa-solid fa-wand-magic-sparkles group-hover:translate-x-1 transition-transform"></i>

@@ -62,7 +62,8 @@ const Home = () => {
           body: JSON.stringify({
             planId,
             interval: 'monthly',
-            successUrl: `https://app.hyokai.ai/settings?checkout=success`,
+            // Let the edge function determine the redirect URL
+            // (guests → /checkout-success, authenticated → /settings)
             cancelUrl: window.location.href,
           }),
         }
@@ -166,7 +167,7 @@ const Home = () => {
             <a href="https://app.hyokai.ai" className="c-button c-button--ghost">
               <span className="c-button_span">{t.nav.logIn}</span>
             </a>
-            <a href="https://app.hyokai.ai" className="c-button c-button--brand">
+            <a href="#pricing" className="c-button c-button--brand">
               <div className="c-button_bg"></div>
               <span className="c-button_span">{t.nav.getStarted}</span>
             </a>
@@ -195,7 +196,7 @@ const Home = () => {
               </p>
 
               <div className="g_btn_group">
-                <a href="https://app.hyokai.ai" className="c-button c-button--brand c-button--lg">
+                <a href="#pricing" className="c-button c-button--brand c-button--lg">
                   <div className="c-button_bg"></div>
                   <span className="c-button_span">{t.hero.ctaPrimary}</span>
                 </a>
@@ -527,7 +528,7 @@ const Home = () => {
                 disabled={isCheckoutLoading}
                 className="c-button c-button--ghost pricing_cta"
               >
-                <span className="c-button_span">{isCheckoutLoading ? '...' : t.pricing.getStarted}</span>
+                <span className="c-button_span">{isCheckoutLoading ? '...' : t.pricing.startTrial}</span>
               </button>
             </div>
 
@@ -581,7 +582,7 @@ const Home = () => {
                 disabled={isCheckoutLoading}
                 className="c-button c-button--ghost pricing_cta"
               >
-                <span className="c-button_span">{isCheckoutLoading ? '...' : t.pricing.getStarted}</span>
+                <span className="c-button_span">{isCheckoutLoading ? '...' : t.pricing.startTrial}</span>
               </button>
             </div>
 
@@ -608,7 +609,7 @@ const Home = () => {
                 className="c-button c-button--ghost pricing_cta"
                 style={{ borderColor: 'rgba(139, 92, 246, 0.3)', color: 'white' }}
               >
-                <span className="c-button_span">{isCheckoutLoading ? '...' : t.pricing.getStarted}</span>
+                <span className="c-button_span">{isCheckoutLoading ? '...' : t.pricing.startTrial}</span>
               </button>
             </div>
           </div>

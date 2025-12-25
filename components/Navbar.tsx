@@ -54,7 +54,7 @@ const Navbar: React.FC = () => {
             </button>
 
             <a
-              href="https://app.hyokai.ai"
+              href="#pricing"
               className="ml-4 px-6 py-2.5 bg-gradient-to-r from-cb-blue to-cyan-400 text-white rounded-xl font-semibold shadow-[0_4px_14px_0_rgba(12,162,231,0.39)] hover:shadow-[0_6px_20px_rgba(12,162,231,0.23)] hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden group"
             >
               <span className="relative z-10">{t.nav.getStarted}</span>
@@ -89,7 +89,7 @@ const Navbar: React.FC = () => {
         <a href="#how-it-works" className="text-lg font-medium text-slate-700 p-4 hover:bg-white/40 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>{t.nav.howItWorks}</a>
         <a href="#solutions" className="text-lg font-medium text-slate-700 p-4 hover:bg-white/40 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>{t.nav.solutions}</a>
         <a href="#pricing" className="text-lg font-medium text-slate-700 p-4 hover:bg-white/40 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>{t.nav.pricing}</a>
-        <a href="https://app.hyokai.ai" className="text-lg font-medium text-cb-blue p-4 bg-blue-50/50 rounded-lg" onClick={() => setMobileMenuOpen(false)}>{t.nav.getStarted}</a>
+        <a href="#pricing" className="text-lg font-medium text-cb-blue p-4 bg-blue-50/50 rounded-lg" onClick={() => setMobileMenuOpen(false)}>{t.nav.getStarted}</a>
       </div>
     </div>
   );

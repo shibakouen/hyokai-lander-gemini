@@ -54,12 +54,12 @@ const getProTranslations = (lang: 'en' | 'ja') => {
         titleEnd: '',
         subtitle: 'Everything you need to get the most out of AI prompt transformation.',
         cards: [
-          { icon: '🔗', title: 'GitHub Integration', description: 'Connect private repos with PAT. Hyokai reads your codebase structure, patterns, and conventions.' },
+          { icon: '🧠', title: 'AI File Selection', description: 'Claude 3.5 Haiku reads your prompt and intelligently selects only the relevant files from your codebase. No keyword matching — real semantic understanding.' },
+          { icon: '🔗', title: 'GitHub Integration', description: 'Connect private repos with PAT. Your codebase structure, patterns, and file contents become AI-searchable context.' },
           { icon: '⚖️', title: 'Model Comparison', description: 'Transform with multiple models at once. See how Claude, GPT-4, and Gemini interpret your prompts.' },
           { icon: '📝', title: 'Custom Instructions', description: 'Save project-specific rules, coding standards, and preferences. Apply them automatically.' },
           { icon: '🧠', title: 'Context Memory', description: 'Save unlimited contexts. Switch between projects instantly. Your setup, always ready.' },
           { icon: '🎯', title: 'Model Selection', description: 'Choose the right model for each task. GPT-4 for creativity, Claude for reasoning, Gemini for speed.' },
-          { icon: '📊', title: 'Usage Analytics', description: 'Track your transformations, compare model performance, and optimize your workflow.' },
         ],
       },
       stats: {
@@ -67,6 +67,53 @@ const getProTranslations = (lang: 'en' | 'ja') => {
         powerUsers: 'Power Users',
         modelsAvailable: 'AI Models',
         satisfaction: 'Satisfaction',
+      },
+      aiIntelligence: {
+        badge: 'AI-Powered',
+        title: 'Codebase Intelligence',
+        titleHighlight: 'That Actually Understands',
+        subtitle: 'Not keyword matching. Not regex. Real AI that reads your codebase like a senior engineer would.',
+        howItWorks: 'How It Works',
+        step1: {
+          title: 'You describe your task',
+          description: '"Add dark mode to the settings page"',
+        },
+        step2: {
+          title: 'AI analyzes your prompt',
+          description: 'Claude 3.5 Haiku reads your request and understands the semantic meaning — not just keywords.',
+        },
+        step3: {
+          title: 'Intelligent file selection',
+          description: 'AI identifies which files are actually relevant: settings components, theme providers, CSS files, not just files named "dark".',
+        },
+        step4: {
+          title: 'Context-aware output',
+          description: 'Your transformed prompt includes the right context, following your project\'s patterns.',
+        },
+        realAI: {
+          title: 'Real AI, Not Fake Intelligence',
+          point1: {
+            title: 'Semantic Understanding',
+            description: 'Understands "auth" relates to login, tokens, sessions — not just files containing "auth"',
+          },
+          point2: {
+            title: 'Project-Aware',
+            description: 'Learns your folder structure, naming conventions, and architectural patterns',
+          },
+          point3: {
+            title: 'Cross-File Reasoning',
+            description: 'Knows that changing a hook might affect components that import it',
+          },
+        },
+        visualization: {
+          prompt: 'Your prompt: "Fix the user authentication bug"',
+          thinking: 'AI Thinking...',
+          selected: 'Files Selected',
+          fileList: ['src/contexts/AuthContext.tsx', 'src/hooks/useAuth.ts', 'supabase/functions/auth/index.ts', 'src/components/LoginForm.tsx'],
+          ignored: 'Intelligently Ignored',
+          ignoredList: ['src/components/UserAvatar.tsx', 'src/pages/About.tsx', 'README.md'],
+          reasoning: 'AI Reasoning: "Auth bug" → authentication flow → AuthContext manages state, useAuth hook provides access, edge function handles tokens, LoginForm is the entry point. Avatar and About pages use auth but aren\'t relevant to the bug.',
+        },
       },
       demo: {
         title: 'See ',
@@ -218,12 +265,12 @@ const getProTranslations = (lang: 'en' | 'ja') => {
         titleEnd: '機能',
         subtitle: 'AIプロンプト変換を最大限に活用するための機能を揃えました。',
         cards: [
-          { icon: '🔗', title: 'GitHub連携', description: 'Personal Access Tokenでプライベートリポを接続。コードベースの構造やパターンを自動で読み取ります。' },
+          { icon: '🧠', title: 'AIファイル選択', description: 'Claude 3.5 Haikuがプロンプトを読み、コードベースから関連ファイルのみをインテリジェントに選択。キーワードマッチングではなく本物の意味理解。' },
+          { icon: '🔗', title: 'GitHub連携', description: 'Personal Access Tokenでプライベートリポを接続。コードベースの構造、パターン、ファイル内容がAI検索可能なコンテキストに。' },
           { icon: '⚖️', title: 'モデル比較', description: '複数のAIモデルで同時に変換。Claude、GPT-4、Geminiの違いが一目でわかります。' },
           { icon: '📝', title: 'カスタム指示', description: 'プロジェクトごとのルールやコーディング規約を保存。毎回自動で適用されます。' },
           { icon: '🧠', title: 'コンテキスト記憶', description: '複数のコンテキストを保存可能。プロジェクト間の切り替えもワンクリック。' },
           { icon: '🎯', title: 'モデル選択', description: 'タスクに最適なモデルを選択。創造性重視ならGPT-4、論理的思考ならClaude。' },
-          { icon: '📊', title: '利用状況', description: '変換履歴を確認。モデルごとのパフォーマンスを比較してワークフローを最適化。' },
         ],
       },
       stats: {
@@ -231,6 +278,53 @@ const getProTranslations = (lang: 'en' | 'ja') => {
         powerUsers: 'パワーユーザー',
         modelsAvailable: 'AIモデル',
         satisfaction: '満足度',
+      },
+      aiIntelligence: {
+        badge: 'AI搭載',
+        title: 'コードベース分析',
+        titleHighlight: '本当に理解する',
+        subtitle: 'キーワード検索でも正規表現でもない。シニアエンジニアのようにコードを読む本物のAI。',
+        howItWorks: '仕組み',
+        step1: {
+          title: 'タスクを説明',
+          description: '「設定ページにダークモードを追加して」',
+        },
+        step2: {
+          title: 'AIがプロンプトを分析',
+          description: 'Claude 3.5 Haikuがリクエストを読み、キーワードではなく意味を理解します。',
+        },
+        step3: {
+          title: 'インテリジェントなファイル選択',
+          description: '設定コンポーネント、テーマプロバイダー、CSSファイルなど、本当に関連するファイルを特定。「dark」という名前のファイルだけではありません。',
+        },
+        step4: {
+          title: 'コンテキストを踏まえた出力',
+          description: 'プロジェクトのパターンに従った適切なコンテキストを含む変換プロンプト。',
+        },
+        realAI: {
+          title: '本物のAI、偽物じゃない',
+          point1: {
+            title: '意味の理解',
+            description: '「auth」がログイン、トークン、セッションに関連することを理解—「auth」を含むファイルだけではない',
+          },
+          point2: {
+            title: 'プロジェクト認識',
+            description: 'フォルダ構造、命名規則、アーキテクチャパターンを学習',
+          },
+          point3: {
+            title: 'ファイル間の推論',
+            description: 'フックの変更がそれをインポートするコンポーネントに影響することを理解',
+          },
+        },
+        visualization: {
+          prompt: 'プロンプト：「ユーザー認証のバグを直して」',
+          thinking: 'AI分析中...',
+          selected: '選択されたファイル',
+          fileList: ['src/contexts/AuthContext.tsx', 'src/hooks/useAuth.ts', 'supabase/functions/auth/index.ts', 'src/components/LoginForm.tsx'],
+          ignored: 'インテリジェントに除外',
+          ignoredList: ['src/components/UserAvatar.tsx', 'src/pages/About.tsx', 'README.md'],
+          reasoning: 'AI推論：「認証バグ」→認証フロー→AuthContextが状態管理、useAuthフックがアクセス提供、Edge Functionがトークン処理、LoginFormがエントリーポイント。AvatarとAboutは認証を使うがバグには関係なし。',
+        },
       },
       demo: {
         title: '',
@@ -668,6 +762,152 @@ export default function Pricing() {
                 <p className="c-text-3 cc-onsurface-weak">{card.description}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* AI Codebase Intelligence Section */}
+      <section id="ai-intelligence" className="ai_intel_section c-section-padding">
+        <div className="c-container">
+          {/* Section Header */}
+          <div className="text-center" style={{ marginBottom: '3rem' }}>
+            <div className="home_hero_badge" style={{ margin: '0 auto 1rem' }}>
+              <span className="home_hero_badge_dot"></span>
+              {t.aiIntelligence.badge}
+            </div>
+            <h2 className="c-title-1" style={{ marginBottom: '1rem' }}>
+              {t.aiIntelligence.title}{' '}
+              <span className="gradient-text">{t.aiIntelligence.titleHighlight}</span>
+            </h2>
+            <p className="c-text-2 cc-onsurface-weak c-max-4-col mx-auto">
+              {t.aiIntelligence.subtitle}
+            </p>
+          </div>
+
+          {/* Interactive Visualization */}
+          <div className="ai_intel_visualization">
+            {/* Left: Prompt Input */}
+            <div className="ai_intel_prompt_card">
+              <div className="ai_intel_prompt_header">
+                <span className="ai_intel_icon">💬</span>
+                {lang === 'en' ? 'Your Prompt' : 'あなたのプロンプト'}
+              </div>
+              <div className="ai_intel_prompt_text">
+                {t.aiIntelligence.visualization.prompt}
+              </div>
+            </div>
+
+            {/* Center: AI Processing Animation */}
+            <div className="ai_intel_brain">
+              <div className="ai_intel_brain_pulse"></div>
+              <div className="ai_intel_brain_icon">🧠</div>
+              <div className="ai_intel_brain_label">{t.aiIntelligence.visualization.thinking}</div>
+            </div>
+
+            {/* Right: File Selection Results */}
+            <div className="ai_intel_results">
+              {/* Selected Files */}
+              <div className="ai_intel_files_card ai_intel_files_card--selected">
+                <div className="ai_intel_files_header">
+                  <span className="ai_intel_check">✓</span>
+                  {t.aiIntelligence.visualization.selected}
+                </div>
+                <ul className="ai_intel_files_list">
+                  {t.aiIntelligence.visualization.fileList.map((file, idx) => (
+                    <li key={idx} className="ai_intel_file ai_intel_file--selected">
+                      <span className="ai_intel_file_icon">📄</span>
+                      {file}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Ignored Files */}
+              <div className="ai_intel_files_card ai_intel_files_card--ignored">
+                <div className="ai_intel_files_header">
+                  <span className="ai_intel_x">✕</span>
+                  {t.aiIntelligence.visualization.ignored}
+                </div>
+                <ul className="ai_intel_files_list">
+                  {t.aiIntelligence.visualization.ignoredList.map((file, idx) => (
+                    <li key={idx} className="ai_intel_file ai_intel_file--ignored">
+                      <span className="ai_intel_file_icon">📄</span>
+                      {file}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* AI Reasoning Quote */}
+          <div className="ai_intel_reasoning">
+            <div className="ai_intel_reasoning_icon">💡</div>
+            <p className="ai_intel_reasoning_text">{t.aiIntelligence.visualization.reasoning}</p>
+          </div>
+
+          {/* Three Pillars of Intelligence */}
+          <div className="ai_intel_pillars">
+            <h3 className="c-title-3 text-center" style={{ marginBottom: '2rem' }}>
+              {t.aiIntelligence.realAI.title}
+            </h3>
+            <div className="ai_intel_pillars_grid">
+              <div className="ai_intel_pillar">
+                <div className="ai_intel_pillar_icon">🔍</div>
+                <h4 className="ai_intel_pillar_title">{t.aiIntelligence.realAI.point1.title}</h4>
+                <p className="ai_intel_pillar_desc">{t.aiIntelligence.realAI.point1.description}</p>
+              </div>
+              <div className="ai_intel_pillar">
+                <div className="ai_intel_pillar_icon">🏗️</div>
+                <h4 className="ai_intel_pillar_title">{t.aiIntelligence.realAI.point2.title}</h4>
+                <p className="ai_intel_pillar_desc">{t.aiIntelligence.realAI.point2.description}</p>
+              </div>
+              <div className="ai_intel_pillar">
+                <div className="ai_intel_pillar_icon">🔗</div>
+                <h4 className="ai_intel_pillar_title">{t.aiIntelligence.realAI.point3.title}</h4>
+                <p className="ai_intel_pillar_desc">{t.aiIntelligence.realAI.point3.description}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* How It Works Steps */}
+          <div className="ai_intel_steps">
+            <h3 className="c-title-3 text-center" style={{ marginBottom: '2rem' }}>
+              {t.aiIntelligence.howItWorks}
+            </h3>
+            <div className="ai_intel_steps_grid">
+              <div className="ai_intel_step">
+                <div className="ai_intel_step_number">1</div>
+                <div className="ai_intel_step_content">
+                  <h4 className="ai_intel_step_title">{t.aiIntelligence.step1.title}</h4>
+                  <p className="ai_intel_step_desc">{t.aiIntelligence.step1.description}</p>
+                </div>
+              </div>
+              <div className="ai_intel_step_connector"></div>
+              <div className="ai_intel_step">
+                <div className="ai_intel_step_number">2</div>
+                <div className="ai_intel_step_content">
+                  <h4 className="ai_intel_step_title">{t.aiIntelligence.step2.title}</h4>
+                  <p className="ai_intel_step_desc">{t.aiIntelligence.step2.description}</p>
+                </div>
+              </div>
+              <div className="ai_intel_step_connector"></div>
+              <div className="ai_intel_step">
+                <div className="ai_intel_step_number">3</div>
+                <div className="ai_intel_step_content">
+                  <h4 className="ai_intel_step_title">{t.aiIntelligence.step3.title}</h4>
+                  <p className="ai_intel_step_desc">{t.aiIntelligence.step3.description}</p>
+                </div>
+              </div>
+              <div className="ai_intel_step_connector"></div>
+              <div className="ai_intel_step">
+                <div className="ai_intel_step_number">4</div>
+                <div className="ai_intel_step_content">
+                  <h4 className="ai_intel_step_title">{t.aiIntelligence.step4.title}</h4>
+                  <p className="ai_intel_step_desc">{t.aiIntelligence.step4.description}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

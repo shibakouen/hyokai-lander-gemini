@@ -31,7 +31,8 @@ const Pricing: React.FC = () => {
           body: JSON.stringify({
             planId,
             interval: 'monthly',
-            successUrl: `https://app.hyokai.ai/settings?checkout=success`,
+            // Let the edge function determine the redirect URL
+            // (guests → /checkout-success, authenticated → /settings)
             cancelUrl: window.location.href,
           }),
         }
